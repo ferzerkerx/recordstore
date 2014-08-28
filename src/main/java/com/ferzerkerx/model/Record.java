@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 @Entity
 @Table(name="record")
@@ -23,6 +24,7 @@ public class Record {
 
     private String title;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "artist_id", nullable = false)
     private Artist artist;

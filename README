@@ -1,0 +1,19 @@
+Installation
+1. install JDK 7 and maven
+2. cd to app dir (recordstore)
+3. mvn clean install tomcat7:run
+4. app will listen on port :9090
+
+dependencies
+ - maven 3+
+ - jdk 7+
+ - postgresql 9.1+
+
+ Debug
+ you can query the db or use existing pages to debug stuff
+  http://localhost:9090/ --> list all artists
+
+
+Available service (WIK)
+http://localhost:9090/artists.json --> lists all the registered artists
+http://localhost:9090/records/artist/1.json --> lists all the records for the specified artist
