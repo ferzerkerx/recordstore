@@ -2,7 +2,6 @@ package com.ferzerkerx.dao.impl;
 
 import javax.persistence.Query;
 import java.util.Collection;
-import java.util.List;
 import com.ferzerkerx.dao.ArtistDao;
 import com.ferzerkerx.model.Artist;
 import org.springframework.stereotype.Repository;

@@ -1,11 +1,9 @@
 package com.ferzerkerx.controller;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.Collection;
 import java.util.Map;
 import com.ferzerkerx.dao.ArtistDao;
 import com.ferzerkerx.model.Artist;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
