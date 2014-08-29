@@ -15,5 +15,14 @@ dependencies
 
 
 Available service (WIK)
-http://localhost:9090/artists.json --> lists all the registered artists
-http://localhost:9090/records/artist/1.json --> lists all the records for the specified artist
+GET
+    - http://localhost:9090/artists.json --> lists all the registered artists
+    - http://localhost:9090/artist/{id}/records.json --> lists all the records for the specified artist
+
+POST
+NOTE: Must send headers (you can use DHC in chrome to test this)
+Accept: application/json
+Content-Type: application/json
+
+    - http://localhost:9090/artists.json --> saves artist
+    - http://localhost:9090/artist/{id}/record.json --> saves record for specified artist

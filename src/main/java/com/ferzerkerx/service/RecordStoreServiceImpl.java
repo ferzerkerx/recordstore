@@ -32,4 +32,14 @@ public class RecordStoreServiceImpl implements RecordStoreService {
     public List<Record> findRecordsByArtist(int artistId) {
         return recordDao.findRecordsByArtist(artistId);
     }
+
+    @Override
+    public void saveArtist(Artist artist) {
+        artistDao.insert(artist);
+    }
+
+    @Override
+    public void saveRecord(Record record) {
+        recordDao.insert(record);
+    }
 }

@@ -9,4 +9,8 @@ public interface RecordStoreService {
     Collection<Artist> findAllArtists();
 
     List<Record> findRecordsByArtist(int artistId);
+
+    void saveArtist(Artist artist);
+
+    void saveRecord(Record record);
 }
