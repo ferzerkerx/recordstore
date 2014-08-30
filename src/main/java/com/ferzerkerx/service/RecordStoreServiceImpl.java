@@ -29,6 +29,16 @@ public class RecordStoreServiceImpl implements RecordStoreService {
     }
 
     @Override
+    public Artist findArtistById(int artistId) {
+        return artistDao.findById(artistId);
+    }
+
+    @Override
+    public Record findRecordById(int recordId) {
+        return recordDao.findById(recordId);
+    }
+
+    @Override
     public List<Record> findRecordsByArtist(int artistId) {
         return recordDao.findRecordsByArtist(artistId);
     }
@@ -39,7 +49,11 @@ public class RecordStoreServiceImpl implements RecordStoreService {
     }
 
     @Override
-    public void saveRecord(Record record) {
+    public void saveRecord(int artistId, Record record) {
+        Artist artist = new Artist();
+        artist.setId(artistId);
+
+        record.setArtist(artist);
         recordDao.insert(record);
     }
 }

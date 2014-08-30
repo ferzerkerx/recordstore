@@ -9,6 +9,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ArtistDaoImpl extends BaseDaoImpl<Artist> implements ArtistDao {
 
+    public ArtistDaoImpl() {
+        super(Artist.class);
+    }
+
     @Override
     public Collection<Artist> findAllArtists() {
         Query query = getEm().createQuery("SELECT e FROM Artist e");

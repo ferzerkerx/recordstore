@@ -8,9 +8,13 @@ import com.ferzerkerx.model.Record;
 public interface RecordStoreService {
     Collection<Artist> findAllArtists();
 
+    Artist findArtistById(int artistId);
+
+    Record findRecordById(int recordId);
+
     List<Record> findRecordsByArtist(int artistId);
 
     void saveArtist(Artist artist);
 
-    void saveRecord(Record record);
+    void saveRecord(int artistId, Record record);
 }

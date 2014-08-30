@@ -1,7 +1,6 @@
 package com.ferzerkerx.controller;
 
 import java.util.List;
-import com.ferzerkerx.model.Artist;
 import com.ferzerkerx.model.Record;
 import com.ferzerkerx.service.RecordStoreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +26,13 @@ public class RecordsController {
     @RequestMapping(value = {"/artist/{id}/record.json"}, method = RequestMethod.POST, headers = "Accept=application/json", produces = { "application/json" })
     @ResponseBody
     public Record saveRecord(@PathVariable(value = "id") int artistId, @RequestBody Record record) {
-        Artist artist = new Artist();
-        artist.setId(artistId);
-
-        record.setArtist(artist);
-        recordStoreService.saveRecord(record);
+        recordStoreService.saveRecord(artistId, record);
         return record;
+    }
+
+    @RequestMapping(value = {"/record/{id}.json"}, method = RequestMethod.GET, headers = "Accept=application/json", produces = { "application/json" })
+    @ResponseBody
+    public Record findRecordById(@PathVariable(value = "id") int recordId) {
+        return recordStoreService.findRecordById(recordId);
     }
 }

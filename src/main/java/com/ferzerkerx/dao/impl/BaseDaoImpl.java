@@ -4,15 +4,16 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 import com.ferzerkerx.dao.BaseDao;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-@Repository
-@Transactional
+
 public class BaseDaoImpl<T> implements BaseDao<T> {
 
-
+    private final Class<T> clazz;
     private EntityManager em = null;
+
+    public BaseDaoImpl(Class<T> clazz) {
+        this.clazz = clazz;
+    }
 
     protected EntityManager getEm() {
         return em;
@@ -43,7 +44,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     }
 
     @Override
-    public T findById(Class<T> clazz, Integer id) {
+    public T findById(Integer id) {
         return (T) em.find(clazz, id);
     }
 
