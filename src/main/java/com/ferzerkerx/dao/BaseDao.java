@@ -10,6 +10,8 @@ public interface BaseDao<T> {
 
     T update(T type);
 
+    void delete(int id);
+
     T delete(T type);
 
     List<T> findByCriteria(T typeCriteria);

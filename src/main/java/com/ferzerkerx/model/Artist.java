@@ -10,13 +10,14 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.List;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name="artist")
-public class Artist {
+public class Artist implements Serializable {
 
     @Id
     @Column(name="artist_id")

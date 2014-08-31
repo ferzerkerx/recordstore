@@ -10,11 +10,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.io.Serializable;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 @Entity
 @Table(name="record")
-public class Record {
+public class Record implements Serializable {
 
     @Id
     @Column(name="record_id")
