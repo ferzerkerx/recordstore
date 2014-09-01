@@ -10,7 +10,7 @@ public interface BaseDao<T> {
 
     T update(T type);
 
-    void delete(int id);
+    void deleteByIds(Integer... ids);
 
     T delete(T type);
 

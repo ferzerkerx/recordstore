@@ -2,6 +2,7 @@ package com.ferzerkerx.dao.impl;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Arrays;
 import java.util.List;
 import com.ferzerkerx.dao.BaseDao;
 
@@ -37,9 +38,9 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     }
 
     @Override
-    public void delete(int id) {
-        em.createQuery(String.format("DELETE FROM %s e WHERE e.id = :id", clazz.getName())) //
-        .setParameter("id", id).executeUpdate();
+    public void deleteByIds(Integer...ids) {
+        em.createQuery(String.format("DELETE FROM %s e WHERE e.id in :ids", clazz.getName())) //
+            .setParameter("ids", Arrays.asList(ids)).executeUpdate();
     }
 
     @Override
@@ -47,8 +48,6 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
         em.remove(type);
         return type;
     }
-
-
 
     @Override
     public List<T> findByCriteria(T typeCriteria) {

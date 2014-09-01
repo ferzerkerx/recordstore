@@ -25,7 +25,13 @@ public class RecordStoreServiceImpl implements RecordStoreService {
 
     @Override
     public void deleteRecordById(int recordId) {
-        recordDao.delete(recordId);
+        recordDao.deleteByIds(recordId);
+    }
+
+    @Override
+    public void deleteArtistWithRecordsById(int artistId) {
+        recordDao.deleteRecordsByArtistId(artistId);
+        artistDao.deleteByIds(artistId);
     }
 
     @Override

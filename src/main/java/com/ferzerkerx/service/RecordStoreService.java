@@ -8,6 +8,8 @@ import com.ferzerkerx.model.Record;
 public interface RecordStoreService {
     void deleteRecordById(int recordId);
 
+    void deleteArtistWithRecordsById(int artistId);
+
     Collection<Artist> findAllArtists();
 
     Artist findArtistById(int artistId);

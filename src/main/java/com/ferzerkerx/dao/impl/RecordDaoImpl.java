@@ -13,6 +13,13 @@ public class RecordDaoImpl extends BaseDaoImpl<Record> implements RecordDao {
     }
 
     @Override
+    public void deleteRecordsByArtistId(int artistId) {
+        getEm().createQuery("DELETE FROM Record r WHERE r.artist.id = :id") //
+        .setParameter("id", artistId) //
+        .executeUpdate();
+    }
+
+    @Override
     public List<Record> findRecordsByArtist(int artistId) {
         TypedQuery<Record> query = getEm().createQuery("SELECT r FROM Record r WHERE r.artist.id = :id", Record.class);
         query.setParameter("id", artistId);
