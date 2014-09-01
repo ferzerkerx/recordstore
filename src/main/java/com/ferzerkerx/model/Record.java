@@ -27,7 +27,7 @@ public class Record implements Serializable {
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "artist_id", nullable = false)
+    @JoinColumn(name = "artist_id", nullable = false, updatable = false)
     private Artist artist;
 
     @Column(length = 4)

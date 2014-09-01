@@ -13,7 +13,6 @@ import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.List;
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name="artist")
@@ -28,9 +27,7 @@ public class Artist implements Serializable {
     private String name;
 
     @JsonIgnore
-    @OneToMany(mappedBy="artist", cascade={CascadeType.ALL}, fetch = FetchType.LAZY)
-    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE,
-        org.hibernate.annotations.CascadeType.DELETE_ORPHAN})//TODO Fer update
+    @OneToMany(mappedBy="artist", cascade={CascadeType.DETACH}, fetch = FetchType.LAZY)
     private List<Record> records;
 
     public int getId() {

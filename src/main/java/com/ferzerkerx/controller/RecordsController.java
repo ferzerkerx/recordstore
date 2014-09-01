@@ -43,4 +43,11 @@ public class RecordsController {
     public void deleteRecordById(@PathVariable(value = "id") int recordId) {
         recordStoreService.deleteRecordById(recordId);
     }
+
+    @RequestMapping(value = {"/record/{id}.json"}, method = RequestMethod.PUT, headers = "Accept=application/json", produces = { "application/json" })
+    @ResponseBody
+    public Record updateArtistById(@PathVariable(value = "id") int recordId, @RequestBody Record record) {
+        record.setId(recordId);
+        return recordStoreService.updateRecordById(record);
+    }
 }

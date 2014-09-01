@@ -67,4 +67,14 @@ public class RecordStoreServiceImpl implements RecordStoreService {
         record.setArtist(artist);
         recordDao.insert(record);
     }
+
+    @Override
+    public Artist updateArtistById(Artist artist) {
+        return artistDao.update(artist);
+    }
+
+    @Override
+    public Record updateRecordById(Record record) {
+        return recordDao.update(record);
+    }
 }

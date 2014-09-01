@@ -53,4 +53,11 @@ public class ArtistController {
         recordStoreService.deleteArtistWithRecordsById(artistId);
     }
 
+    @RequestMapping(value = {"/artist/{id}.json"}, method = RequestMethod.PUT, headers = "Accept=application/json", produces = { "application/json" })
+    @ResponseBody
+    public Artist updateArtistById(@PathVariable(value = "id") int artistId, @RequestBody Artist artist) {
+        artist.setId(artistId);
+        return recordStoreService.updateArtistById(artist);
+    }
+
 }

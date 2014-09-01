@@ -39,3 +39,8 @@ Accept: application/json
     - http://localhost:9090/artist/{id}.json --> deletes the artist for the specified id (also deletes all records)
 
 PUT
+NOTE: Must send headers (you can use DHC in chrome to test this)
+Accept: application/json
+Content-Type: application/json
+    - http://localhost:9090/record/{id}.json --> updates the record for the specified id
+    - http://localhost:9090/artist/{id}.json --> updates the artist for the specified id
