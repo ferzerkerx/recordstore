@@ -1,6 +1,7 @@
 package com.ferzerkerx.controller;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import com.ferzerkerx.model.Artist;
 import com.ferzerkerx.service.RecordStoreService;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
@@ -43,7 +45,7 @@ public class ArtistController {
 
     @RequestMapping(value = {"/artist/{id}.json"}, method = RequestMethod.GET, headers = "Accept=application/json", produces = { "application/json" })
     @ResponseBody
-    public Artist findRecordById(@PathVariable(value = "id") int artistId) {
+    public Artist findArtistById(@PathVariable(value = "id") int artistId) {
         return recordStoreService.findArtistById(artistId);
     }
 
@@ -58,6 +60,12 @@ public class ArtistController {
     public Artist updateArtistById(@PathVariable(value = "id") int artistId, @RequestBody Artist artist) {
         artist.setId(artistId);
         return recordStoreService.updateArtistById(artist);
+    }
+
+    @RequestMapping(value = {"/artist/search.json"}, method = RequestMethod.GET, headers = "Accept=application/json", produces = { "application/json" })
+    @ResponseBody
+    public List<Artist> findMatchedArtistsByName(@RequestParam("name") String name) {
+        return recordStoreService.findMatchedArtistsByName(name);
     }
 
 }

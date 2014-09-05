@@ -45,6 +45,11 @@ public class RecordStoreServiceImpl implements RecordStoreService {
     }
 
     @Override
+    public List<Artist> findMatchedArtistsByName(String name) {
+        return artistDao.findMatchedArtistsByName(name);
+    }
+
+    @Override
     public Record findRecordById(int recordId) {
         return recordDao.findById(recordId);
     }
