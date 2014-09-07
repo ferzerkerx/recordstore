@@ -23,7 +23,7 @@ public class ArtistDaoImpl extends BaseDaoImpl<Artist> implements ArtistDao {
     @Override
     public List<Artist> findMatchedArtistsByName(String name) {
         Query query = getEm().createQuery("SELECT e FROM Artist e WHERE e.name LIKE :name");
-        query.setParameter("name", name);
+        query.setParameter("name", "%" + name + "%");
         return (List<Artist>) query.getResultList();
     }
 }

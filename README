@@ -23,6 +23,7 @@ Accept: application/json
     - http://localhost:9090/artist/{id}/records.json --> lists all the records for the specified artist
     - http://localhost:9090/record/{id}.json --> gets the record for the specified id
     - http://localhost:9090/artist/{id}.json --> gets the artist for the specified id
+    - http://localhost:9090/artist/search.json?name={name} --> finds an artist by the specified name
 
 POST
 NOTE: Must send headers (you can use DHC in chrome to test this)

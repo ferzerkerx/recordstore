@@ -16,6 +16,8 @@ public interface RecordStoreService {
 
     List<Artist> findMatchedArtistsByName(String name);
 
+    List<Record> findMatchedRecordByCriteria(String title, String year);
+
     Record findRecordById(int recordId);
 
     List<Record> findRecordsByArtist(int artistId);

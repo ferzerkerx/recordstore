@@ -50,6 +50,14 @@ public class RecordStoreServiceImpl implements RecordStoreService {
     }
 
     @Override
+    public List<Record> findMatchedRecordByCriteria(String title, String year) {
+        Record record = new Record();
+        record.setTitle(title);
+        record.setYear(year);
+        return recordDao.findByCriteria(record);
+    }
+
+    @Override
     public Record findRecordById(int recordId) {
         return recordDao.findById(recordId);
     }

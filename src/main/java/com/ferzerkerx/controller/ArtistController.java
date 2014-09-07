@@ -4,7 +4,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import com.ferzerkerx.model.Artist;
+import com.ferzerkerx.model.BaseException;
 import com.ferzerkerx.service.RecordStoreService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -64,7 +66,10 @@ public class ArtistController {
 
     @RequestMapping(value = {"/artist/search.json"}, method = RequestMethod.GET, headers = "Accept=application/json", produces = { "application/json" })
     @ResponseBody
-    public List<Artist> findMatchedArtistsByName(@RequestParam("name") String name) {
+    public List<Artist> findMatchedArtistsByName(@RequestParam(value = "name", required = false) String name) {
+        if (StringUtils.isBlank(name)) { //Could have used required attribute
+            throw new BaseException("At least one criteria must be specified");
+        }
         return recordStoreService.findMatchedArtistsByName(name);
     }
 

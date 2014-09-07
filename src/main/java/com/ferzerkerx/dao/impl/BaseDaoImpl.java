@@ -2,6 +2,8 @@ package com.ferzerkerx.dao.impl;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaQuery;
 import java.util.Arrays;
 import java.util.List;
 import com.ferzerkerx.dao.BaseDao;
@@ -57,6 +59,14 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     @Override
     public T findById(Integer id) {
         return (T) em.find(clazz, id);
+    }
+
+    protected TypedQuery<T> createQuery(String query) {
+        return em.createQuery(query, clazz);
+    }
+
+    protected CriteriaQuery<T> createCriteriaQuery() {
+        return em.getCriteriaBuilder().createQuery(clazz);
     }
 
 }
