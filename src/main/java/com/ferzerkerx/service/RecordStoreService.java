@@ -1,16 +1,16 @@
 package com.ferzerkerx.service;
 
-import java.util.Collection;
-import java.util.List;
 import com.ferzerkerx.model.Artist;
 import com.ferzerkerx.model.Record;
+
+import java.util.List;
 
 public interface RecordStoreService {
     void deleteRecordById(int recordId);
 
     void deleteArtistWithRecordsById(int artistId);
 
-    Collection<Artist> findAllArtists();
+    List<Artist> findAllArtists();
 
     Artist findArtistById(int artistId);
 

@@ -39,15 +39,15 @@ public class RecordDaoImpl extends BaseDaoImpl<Record> implements RecordDao {
         Root<Record> c = criteria.from(Record.class);
         criteria.select(c);
 
-        List<Predicate> predicates = new ArrayList<Predicate>();
+        List<Predicate> predicates = new ArrayList<>();
 
         if (StringUtils.isNotEmpty(typeCriteria.getTitle())) {
             ParameterExpression<String> p = cb.parameter(String.class, "%" + typeCriteria.getTitle() + "%");
-            predicates.add(cb.like(c.<String>get("title"), p));
+            predicates.add(cb.like(c.get("title"), p));
         }
         if (StringUtils.isNotEmpty(typeCriteria.getYear())) {
             ParameterExpression<String> p = cb.parameter(String.class, typeCriteria.getYear());
-            predicates.add(cb.like(c.<String>get("year"), p));
+            predicates.add(cb.like(c.get("year"), p));
         }
         criteria.where(cb.and(predicates.toArray(new Predicate[predicates.size()])));
 

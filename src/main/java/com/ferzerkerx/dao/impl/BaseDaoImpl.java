@@ -23,7 +23,7 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
         this.clazz = clazz;
     }
 
-    protected EntityManager getEm() {
+    EntityManager getEm() {
         return em;
     }
 
@@ -63,10 +63,10 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
 
     @Override
     public T findById(Integer id) {
-        return (T) em.find(clazz, id);
+        return em.find(clazz, id);
     }
 
-    protected TypedQuery<T> createQuery(String query) {
+    TypedQuery<T> createQuery(String query) {
         return em.createQuery(query, clazz);
     }
 

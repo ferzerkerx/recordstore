@@ -22,9 +22,6 @@ public class Artist implements Serializable {
     @OneToMany(mappedBy = "artist", cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
     private List<Record> records;
 
-    /**
-     * Getter for id attribute
-     **/
     public int getId() {
         return id;
     }

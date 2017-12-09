@@ -16,13 +16,13 @@ public class ArtistDaoImpl extends BaseDaoImpl<Artist> implements ArtistDao {
 
     @Override
     public List<Artist> findAllArtists() {
-        TypedQuery query = getEm().createQuery("SELECT e FROM Artist e", Artist.class);
+        TypedQuery<Artist> query = createQuery("SELECT e FROM Artist e");
         return query.getResultList();
     }
 
     @Override
     public List<Artist> findMatchedArtistsByName(String name) {
-        TypedQuery query = getEm().createQuery("SELECT e FROM Artist e WHERE e.name LIKE :name", Artist.class);
+        TypedQuery<Artist> query = createQuery("SELECT e FROM Artist e WHERE e.name LIKE :name");
         query.setParameter("name", "%" + name + "%");
         return query.getResultList();
     }
