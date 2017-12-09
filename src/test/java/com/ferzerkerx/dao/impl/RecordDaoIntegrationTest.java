@@ -1,7 +1,5 @@
 package com.ferzerkerx.dao.impl;
 
-import java.util.List;
-
 import com.ferzerkerx.dao.ArtistDao;
 import com.ferzerkerx.dao.RecordDao;
 import com.ferzerkerx.model.Artist;
@@ -9,6 +7,8 @@ import com.ferzerkerx.model.Record;
 import org.apache.commons.collections.CollectionUtils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -22,7 +22,7 @@ public class RecordDaoIntegrationTest extends BaseDaoIntegrationTest {
     private ArtistDao artistDao;
 
     @Test
-    public void testInsert() throws Exception {
+    public void testInsert() {
         Artist artist = new Artist();
         artist.setName("foo");
         artistDao.insert(artist);
@@ -42,7 +42,7 @@ public class RecordDaoIntegrationTest extends BaseDaoIntegrationTest {
     }
 
     @Test
-    public void testUpdate() throws Exception {
+    public void testUpdate() {
         Artist artist = new Artist();
         artist.setName("foo");
         artistDao.insert(artist);
@@ -64,7 +64,7 @@ public class RecordDaoIntegrationTest extends BaseDaoIntegrationTest {
     }
 
     @Test
-    public void testDelete() throws Exception {
+    public void testDelete() {
         Artist artist = new Artist();
         artist.setName("foo");
         artistDao.insert(artist);
@@ -83,7 +83,7 @@ public class RecordDaoIntegrationTest extends BaseDaoIntegrationTest {
     }
 
     @Test
-    public void testFindRecordsByArtist() throws Exception {
+    public void testFindRecordsByArtist() {
         Artist artist = new Artist();
         artist.setName("foo");
         artistDao.insert(artist);
