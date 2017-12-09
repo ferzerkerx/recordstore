@@ -1,20 +1,18 @@
 package com.ferzerkerx.dao.impl;
 
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.ParameterExpression;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import java.util.ArrayList;
-import java.util.List;
 import com.ferzerkerx.dao.RecordDao;
 import com.ferzerkerx.model.Record;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.*;
+import java.util.ArrayList;
+import java.util.List;
+
 @Repository
 public class RecordDaoImpl extends BaseDaoImpl<Record> implements RecordDao {
+
     public RecordDaoImpl() {
         super(Record.class);
     }
@@ -22,8 +20,8 @@ public class RecordDaoImpl extends BaseDaoImpl<Record> implements RecordDao {
     @Override
     public void deleteRecordsByArtistId(int artistId) {
         getEm().createQuery("DELETE FROM Record r WHERE r.artist.id = :id") //
-        .setParameter("id", artistId) //
-        .executeUpdate();
+                .setParameter("id", artistId) //
+                .executeUpdate();
     }
 
     @Override
@@ -32,7 +30,6 @@ public class RecordDaoImpl extends BaseDaoImpl<Record> implements RecordDao {
         query.setParameter("id", artistId);
         return query.getResultList();
     }
-
 
 
     @Override

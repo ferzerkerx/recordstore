@@ -1,38 +1,30 @@
 package com.ferzerkerx.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 @Entity
-@Table(name="artist")
+@Table(name = "artist")
 public class Artist implements Serializable {
 
     @Id
-    @Column(name="artist_id")
-    @SequenceGenerator(name="pk_sequence", sequenceName="artist_artist_id_seq", allocationSize=1)
-    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="pk_sequence")
+    @Column(name = "artist_id")
+    @SequenceGenerator(name = "pk_sequence", sequenceName = "artist_artist_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
     private int id;
 
     private String name;
 
     @JsonIgnore
-    @OneToMany(mappedBy="artist", cascade={CascadeType.DETACH}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "artist", cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
     private List<Record> records;
 
     /**
-    Getter for id attribute
-    **/
+     * Getter for id attribute
+     **/
     public int getId() {
         return id;
     }

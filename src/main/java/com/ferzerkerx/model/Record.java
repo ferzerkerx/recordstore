@@ -1,26 +1,18 @@
 package com.ferzerkerx.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.io.Serializable;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 @Entity
-@Table(name="record")
+@Table(name = "record")
 public class Record implements Serializable {
 
     @Id
-    @Column(name="record_id")
-    @SequenceGenerator(name="pk_sequence", sequenceName="record_record_id_seq", allocationSize=1)
-    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="pk_sequence")
+    @Column(name = "record_id")
+    @SequenceGenerator(name = "pk_sequence", sequenceName = "record_record_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
     private int id;
 
     private String title;

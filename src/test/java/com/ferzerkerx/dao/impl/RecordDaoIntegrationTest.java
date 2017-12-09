@@ -1,6 +1,7 @@
 package com.ferzerkerx.dao.impl;
 
 import java.util.List;
+
 import com.ferzerkerx.dao.ArtistDao;
 import com.ferzerkerx.dao.RecordDao;
 import com.ferzerkerx.model.Artist;
@@ -11,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.Assert.*;
 
-public class RecordDaoTest extends BaseDaoImplTest {
+public class RecordDaoIntegrationTest extends BaseDaoIntegrationTest {
 
     @Autowired
     private RecordDao recordDao;

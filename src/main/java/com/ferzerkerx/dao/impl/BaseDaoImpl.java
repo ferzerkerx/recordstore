@@ -1,20 +1,25 @@
 package com.ferzerkerx.dao.impl;
 
+import com.ferzerkerx.dao.BaseDao;
+import org.springframework.stereotype.Repository;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaQuery;
+import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.List;
-import com.ferzerkerx.dao.BaseDao;
 
-//TODO Fer extends SimpleJpaRepository?
-public class BaseDaoImpl<T> implements BaseDao<T> {
+@Transactional
+@Repository
+public abstract class BaseDaoImpl<T> implements BaseDao<T> {
 
     private final Class<T> clazz;
-    private EntityManager em = null;
 
-    public BaseDaoImpl(Class<T> clazz) {
+    @PersistenceContext
+    private EntityManager em;
+
+    protected BaseDaoImpl(Class<T> clazz) {
         this.clazz = clazz;
     }
 
@@ -22,8 +27,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
         return em;
     }
 
-    @PersistenceContext
-    public void setEntityManager(EntityManager em) {
+    public void setEm(EntityManager em) {
         this.em = em;
     }
 
@@ -40,15 +44,16 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     }
 
     @Override
-    public void deleteByIds(Integer...ids) {
+    public void deleteByIds(Integer... ids) {
         em.createQuery(String.format("DELETE FROM %s e WHERE e.id in :ids", clazz.getName())) //
-            .setParameter("ids", Arrays.asList(ids)).executeUpdate();
+                .setParameter("ids", Arrays.asList(ids)).executeUpdate();
     }
 
     @Override
     public T delete(T type) {
-        em.remove(type);
-        return type;
+        T managedObject = em.merge(type);
+        em.remove(managedObject);
+        return managedObject;
     }
 
     @Override
@@ -63,10 +68,6 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 
     protected TypedQuery<T> createQuery(String query) {
         return em.createQuery(query, clazz);
-    }
-
-    protected CriteriaQuery<T> createCriteriaQuery() {
-        return em.getCriteriaBuilder().createQuery(clazz);
     }
 
 }

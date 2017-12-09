@@ -1,11 +1,11 @@
 package com.ferzerkerx.dao.impl;
 
-import javax.persistence.Query;
-import java.util.Collection;
-import java.util.List;
 import com.ferzerkerx.dao.ArtistDao;
 import com.ferzerkerx.model.Artist;
 import org.springframework.stereotype.Repository;
+
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 @Repository
 public class ArtistDaoImpl extends BaseDaoImpl<Artist> implements ArtistDao {
@@ -15,15 +15,15 @@ public class ArtistDaoImpl extends BaseDaoImpl<Artist> implements ArtistDao {
     }
 
     @Override
-    public Collection<Artist> findAllArtists() {
-        Query query = getEm().createQuery("SELECT e FROM Artist e");
-        return (Collection<Artist>) query.getResultList();
+    public List<Artist> findAllArtists() {
+        TypedQuery query = getEm().createQuery("SELECT e FROM Artist e", Artist.class);
+        return query.getResultList();
     }
 
     @Override
     public List<Artist> findMatchedArtistsByName(String name) {
-        Query query = getEm().createQuery("SELECT e FROM Artist e WHERE e.name LIKE :name");
+        TypedQuery query = getEm().createQuery("SELECT e FROM Artist e WHERE e.name LIKE :name", Artist.class);
         query.setParameter("name", "%" + name + "%");
-        return (List<Artist>) query.getResultList();
+        return query.getResultList();
     }
 }

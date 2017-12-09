@@ -1,47 +1,39 @@
-Installation
-1. install JDK 7 and maven
-2. cd to app dir (recordstore)
-3. mvn clean install tomcat7:run
-4. app will listen on port :9090
+## Usage
+3.mvn spring-boot:run
+4. app will listen on port :8080
 
-dependencies
+## Dependencies
  - maven 3+
- - jdk 7+
- - postgresql 9.1+
+ - jdk 8+
 
- Debug
- you can query the db or use existing pages to debug stuff
-  http://localhost:9090/ --> list all artists
-
-
-Available service (WIK)
+## Available services
 GET
 NOTE: Must send headers (you can use DHC in chrome to test this)
 Accept: application/json
 
-    - http://localhost:9090/artists.json --> lists all the registered artists
-    - http://localhost:9090/artist/{id}/records.json --> lists all the records for the specified artist
-    - http://localhost:9090/record/{id}.json --> gets the record for the specified id
-    - http://localhost:9090/artist/{id}.json --> gets the artist for the specified id
-    - http://localhost:9090/artist/search.json?name={name} --> finds an artist by the specified name
+    - http://localhost:8080/artists.json --> lists all the registered artists
+    - http://localhost:8080/artist/{id}/records.json --> lists all the records for the specified artist
+    - http://localhost:8080/record/{id}.json --> gets the record for the specified id
+    - http://localhost:8080/artist/{id}.json --> gets the artist for the specified id
+    - http://localhost:8080/artist/search.json?name={name} --> finds an artist by the specified name
 
 POST
 NOTE: Must send headers (you can use DHC in chrome to test this)
 Accept: application/json
 Content-Type: application/json
 
-    - http://localhost:9090/artists.json --> saves artist
-    - http://localhost:9090/artist/{id}/record.json --> saves record for specified artist
+    - http://localhost:8080/artists.json --> saves artist
+    - http://localhost:8080/artist/{id}/record.json --> saves record for specified artist
 
 DELETE
 NOTE: Must send headers (you can use DHC in chrome to test this)
 Accept: application/json
-    - http://localhost:9090/record/{id}.json --> deletes the record for the specified id
-    - http://localhost:9090/artist/{id}.json --> deletes the artist for the specified id (also deletes all records)
+    - http://localhost:8080/record/{id}.json --> deletes the record for the specified id
+    - http://localhost:8080/artist/{id}.json --> deletes the artist for the specified id (also deletes all records)
 
 PUT
 NOTE: Must send headers (you can use DHC in chrome to test this)
 Accept: application/json
 Content-Type: application/json
-    - http://localhost:9090/record/{id}.json --> updates the record for the specified id
-    - http://localhost:9090/artist/{id}.json --> updates the artist for the specified id
+    - http://localhost:8080/record/{id}.json --> updates the record for the specified id
+    - http://localhost:8080/artist/{id}.json --> updates the artist for the specified id
