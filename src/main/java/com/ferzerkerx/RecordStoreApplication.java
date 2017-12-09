@@ -28,7 +28,7 @@ public class RecordStoreApplication {
         return registration;
     }
 
-    public SimpleCORSFilter corsFilter() {
+    private SimpleCORSFilter corsFilter() {
         return new SimpleCORSFilter();
     }
 
