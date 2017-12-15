@@ -1,3 +1,7 @@
+# RecordStore
+
+[![Build Status](https://travis-ci.org/ferzerkerx/recordstore.svg?branch=master)](https://travis-ci.org/ferzerkerx/recordstore)
+
 ## Usage
 3.mvn spring-boot:run
 4. app will listen on port :8080
