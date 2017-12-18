@@ -1,6 +1,7 @@
 # RecordStore
 
 [![Build Status](https://travis-ci.org/ferzerkerx/recordstore.svg?branch=master)](https://travis-ci.org/ferzerkerx/recordstore)
+[![Quality Gate](https://sonarcloud.io/api/badges/gate?key=com.ferzerkerx%3Arecordstore-webapp)](https://sonarcloud.io/dashboard/index/com.ferzerkerx%3Arecordstore-webapp)
 
 ## Usage
 3.mvn spring-boot:run
