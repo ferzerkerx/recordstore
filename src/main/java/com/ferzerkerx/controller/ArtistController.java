@@ -11,8 +11,12 @@ import java.util.List;
 @RestController
 public class ArtistController {
 
+    private final RecordStoreService recordStoreService;
+
     @Autowired
-    private RecordStoreService recordStoreService;
+    public ArtistController(RecordStoreService recordStoreService) {
+        this.recordStoreService = recordStoreService;
+    }
 
     @RequestMapping(value = {"/artists.json"}, method = RequestMethod.GET)
     public Collection<Artist> showAllArtists() {

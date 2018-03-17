@@ -20,14 +20,14 @@ public class TestDbConfig {
     }
 
     @Bean
-    public ArtistRepository artistDao(EntityManagerFactory factory) {
+    public ArtistRepository artistRepository(EntityManagerFactory factory) {
         ArtistRepositoryImpl artistDao = new ArtistRepositoryImpl();
         artistDao.setEm(factory.createEntityManager());
         return artistDao;
     }
 
     @Bean
-    public RecordDao recordDao(EntityManagerFactory factory) {
+    public RecordDao recordRepository(EntityManagerFactory factory) {
         RecordRepositorympl recordDao = new RecordRepositorympl();
         recordDao.setEm(factory.createEntityManager());
         return recordDao;

@@ -12,16 +12,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Collections;
-
 import static com.ferzerkerx.TestUtils.defaultRecord;
 import static com.ferzerkerx.TestUtils.resource;
+import static java.util.Collections.singletonList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -38,47 +35,99 @@ class RecordsControllerTest {
 
     @Test
     void showRecordsForArtist() throws Exception {
-        when(recordStoreService.findRecordsByArtist(artistId)).thenReturn(Collections.singletonList(defaultRecord()));
+        when(recordStoreService.findRecordsByArtist(artistId)).thenReturn(singletonList(defaultRecord()));
 
         this.mockMvc.perform(
                 get("/artist/3/records"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(content().json(resource("show-record-response.json"), true));
+                .andExpect(content().json(resource("list-of-record-response.json"), true));
     }
 
     @Test
     void saveRecord() throws Exception {
-        ArgumentCaptor<Record> recordCapture = ArgumentCaptor.forClass(Record.class);
-        doNothing().when(recordStoreService).saveRecord(eq(artistId), recordCapture.capture());
+        ArgumentCaptor<Record> recordCaptor = ArgumentCaptor.forClass(Record.class);
+        doNothing().when(recordStoreService).saveRecord(eq(artistId), recordCaptor.capture());
 
         this.mockMvc.perform(
                 post("/artist/3/record")
-                    .content(resource("record-request.json"))
-                    .contentType(MediaType.APPLICATION_JSON)
-                )
+                        .content(resource("record-request.json"))
+                        .contentType(MediaType.APPLICATION_JSON)
+        )
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(resource("record-response.json"), true));
 
-        Record captureValue = recordCapture.getValue();
-        assertEquals(captureValue.getTitle(), "title");
-        assertEquals(captureValue.getYear(), "2010");
+        Record captureValue = recordCaptor.getValue();
+        assertEquals("title", captureValue.getTitle());
+        assertEquals("2004", captureValue.getYear());
     }
 
     @Test
-    void findRecordById() {
+    void findRecordById() throws Exception {
+        ArgumentCaptor<Integer> idCaptor = ArgumentCaptor.forClass(Integer.class);
+        doReturn(defaultRecord()).when(recordStoreService).findRecordById(idCaptor.capture());
+
+        this.mockMvc.perform(
+                get("/record/10"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(content().json(resource("record-response.json"), true));
+
+        int captureValue = idCaptor.getValue();
+        assertEquals(10, captureValue);
+
     }
 
     @Test
-    void deleteRecordById() {
+    void deleteRecordById() throws Exception {
+        ArgumentCaptor<Integer> idCaptor = ArgumentCaptor.forClass(Integer.class);
+        doNothing().when(recordStoreService).deleteRecordById(idCaptor.capture());
+
+        this.mockMvc.perform(
+                delete("/record/10"))
+                .andExpect(status().isOk());
+
+        int captureValue = idCaptor.getValue();
+        assertEquals(10, captureValue);
+
     }
 
     @Test
-    void updateArtistById() {
+    void updateArtistById() throws Exception {
+        ArgumentCaptor<Record> recordCaptor = ArgumentCaptor.forClass(Record.class);
+        doAnswer(invocationOnMock -> recordCaptor.getValue())
+                .when(recordStoreService).updateRecordById(recordCaptor.capture());
+
+
+        this.mockMvc.perform(
+                put("/record/10")
+                        .content(resource("record-request.json"))
+                        .contentType(MediaType.APPLICATION_JSON)
+        )
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(content().json(resource("update-record-response.json"), true));
+
+        Record captureValue = recordCaptor.getValue();
+        assertEquals(10, captureValue.getId());
+        assertEquals("title", captureValue.getTitle());
+        assertEquals("2004", captureValue.getYear());
     }
 
     @Test
-    void findMatchedRecordByCriteria() {
+    void findMatchedRecordByCriteria() throws Exception {
+        doReturn(singletonList(defaultRecord()))
+                .when(recordStoreService).findMatchedRecordByCriteria("someTitle", "someYear");
+
+        this.mockMvc.perform(
+                get("/records/search")
+                        .param("title", "someTitle")
+                        .param("year", "someYear")
+                )
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(content().json(resource("list-of-record-response.json"), true));
+
     }
 }

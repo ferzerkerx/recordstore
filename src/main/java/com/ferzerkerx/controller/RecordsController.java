@@ -13,8 +13,12 @@ import java.util.List;
 @RestController
 public class RecordsController {
 
+    private final RecordStoreService recordStoreService;
+
     @Autowired
-    private RecordStoreService recordStoreService;
+    public RecordsController(RecordStoreService recordStoreService) {
+        this.recordStoreService = recordStoreService;
+    }
 
     @RequestMapping(value = {"/artist/{id}/records"}, method = RequestMethod.GET)
     public List<Record> showRecordsForArtist(@PathVariable(value = "id") int artistId) {

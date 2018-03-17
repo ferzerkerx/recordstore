@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 
+import static java.util.Objects.requireNonNull;
+
 @Service
 @Transactional
 public class RecordStoreServiceImpl implements RecordStoreService {
@@ -46,11 +48,15 @@ public class RecordStoreServiceImpl implements RecordStoreService {
 
     @Override
     public List<Artist> findMatchedArtistsByName(String name) {
+        requireNonNull(name);
         return artistRepository.findMatchedArtistsByName(name);
     }
 
     @Override
     public List<Record> findMatchedRecordByCriteria(String title, String year) {
+        requireNonNull(title);
+        requireNonNull(year);
+
         Record record = new Record();
         record.setTitle(title);
         record.setYear(year);
@@ -69,11 +75,13 @@ public class RecordStoreServiceImpl implements RecordStoreService {
 
     @Override
     public void saveArtist(Artist artist) {
+        requireNonNull(artist);
         artistRepository.insert(artist);
     }
 
     @Override
     public void saveRecord(int artistId, Record record) {
+        requireNonNull(record);
         Artist artist = new Artist();
         artist.setId(artistId);
 
@@ -83,11 +91,13 @@ public class RecordStoreServiceImpl implements RecordStoreService {
 
     @Override
     public Artist updateArtistById(Artist artist) {
+        requireNonNull(artist);
         return artistRepository.update(artist);
     }
 
     @Override
     public Record updateRecordById(Record record) {
+        requireNonNull(record);
         return recordDao.update(record);
     }
 }
