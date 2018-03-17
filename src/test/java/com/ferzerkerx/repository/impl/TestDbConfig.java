@@ -1,7 +1,7 @@
-package com.ferzerkerx.dao.impl;
+package com.ferzerkerx.repository.impl;
 
-import com.ferzerkerx.dao.ArtistDao;
-import com.ferzerkerx.dao.RecordDao;
+import com.ferzerkerx.repository.ArtistRepository;
+import com.ferzerkerx.repository.RecordDao;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -12,7 +12,7 @@ import javax.persistence.Persistence;
 
 @Configuration
 @EnableTransactionManagement
-public class TestConfig {
+public class TestDbConfig {
 
     @Bean
     public EntityManagerFactory entityManagerFactory() {
@@ -20,15 +20,15 @@ public class TestConfig {
     }
 
     @Bean
-    public ArtistDao artistDao(EntityManagerFactory factory) {
-        ArtistDaoImpl artistDao = new ArtistDaoImpl();
+    public ArtistRepository artistDao(EntityManagerFactory factory) {
+        ArtistRepositoryImpl artistDao = new ArtistRepositoryImpl();
         artistDao.setEm(factory.createEntityManager());
         return artistDao;
     }
 
     @Bean
     public RecordDao recordDao(EntityManagerFactory factory) {
-        RecordDaoImpl recordDao = new RecordDaoImpl();
+        RecordRepositorympl recordDao = new RecordRepositorympl();
         recordDao.setEm(factory.createEntityManager());
         return recordDao;
     }

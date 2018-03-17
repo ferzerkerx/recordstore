@@ -1,6 +1,6 @@
-package com.ferzerkerx.dao.impl;
+package com.ferzerkerx.repository.impl;
 
-import com.ferzerkerx.dao.ArtistDao;
+import com.ferzerkerx.repository.ArtistRepository;
 import com.ferzerkerx.model.Artist;
 import org.springframework.stereotype.Repository;
 
@@ -8,9 +8,9 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
-public class ArtistDaoImpl extends BaseDaoImpl<Artist> implements ArtistDao {
+public class ArtistRepositoryImpl extends BaseRepositorympl<Artist> implements ArtistRepository {
 
-    public ArtistDaoImpl() {
+    public ArtistRepositoryImpl() {
         super(Artist.class);
     }
 

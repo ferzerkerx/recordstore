@@ -6,6 +6,7 @@ import com.ferzerkerx.model.Record;
 import java.util.List;
 
 public interface RecordStoreService {
+
     void deleteRecordById(int recordId);
 
     void deleteArtistWithRecordsById(int artistId);

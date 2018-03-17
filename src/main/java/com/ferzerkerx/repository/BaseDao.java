@@ -1,4 +1,4 @@
-package com.ferzerkerx.dao;
+package com.ferzerkerx.repository;
 
 import java.util.List;
 

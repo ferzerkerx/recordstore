@@ -20,7 +20,7 @@ public class RecordStoreApplication {
 
     @Bean
     public FilterRegistrationBean corsFilterRegistration() {
-        FilterRegistrationBean registration = new FilterRegistrationBean();
+        FilterRegistrationBean<SimpleCORSFilter> registration = new FilterRegistrationBean<>();
         registration.setFilter(corsFilter());
         registration.addUrlPatterns("*");
         registration.setName("corsFilter");

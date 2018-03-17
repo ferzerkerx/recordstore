@@ -1,25 +1,23 @@
-package com.ferzerkerx.dao.impl;
+package com.ferzerkerx.repository.impl;
 
-import com.ferzerkerx.dao.BaseDao;
+import com.ferzerkerx.repository.BaseDao;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.List;
 
-@Transactional
 @Repository
-public abstract class BaseDaoImpl<T> implements BaseDao<T> {
+public abstract class BaseRepositorympl<T> implements BaseDao<T> {
 
     private final Class<T> clazz;
 
     @PersistenceContext
     private EntityManager em;
 
-    protected BaseDaoImpl(Class<T> clazz) {
+    protected BaseRepositorympl(Class<T> clazz) {
         this.clazz = clazz;
     }
 

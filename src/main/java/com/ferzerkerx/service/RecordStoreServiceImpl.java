@@ -1,23 +1,25 @@
 package com.ferzerkerx.service;
 
-import com.ferzerkerx.dao.ArtistDao;
-import com.ferzerkerx.dao.RecordDao;
+import com.ferzerkerx.repository.ArtistRepository;
+import com.ferzerkerx.repository.RecordDao;
 import com.ferzerkerx.model.Artist;
 import com.ferzerkerx.model.Record;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class RecordStoreServiceImpl implements RecordStoreService {
 
-    private final ArtistDao artistDao;
+    private final ArtistRepository artistRepository;
     private final RecordDao recordDao;
 
     @Autowired
-    public RecordStoreServiceImpl(ArtistDao artistDao, RecordDao recordDao) {
-        this.artistDao = artistDao;
+    public RecordStoreServiceImpl(ArtistRepository artistRepository, RecordDao recordDao) {
+        this.artistRepository = artistRepository;
         this.recordDao = recordDao;
     }
 
@@ -28,23 +30,23 @@ public class RecordStoreServiceImpl implements RecordStoreService {
 
     @Override
     public void deleteArtistWithRecordsById(int artistId) {
-        recordDao.deleteRecordsByArtistId(artistId);
-        artistDao.deleteByIds(artistId);
+        recordDao.deleteByArtistId(artistId);
+        artistRepository.deleteByIds(artistId);
     }
 
     @Override
     public List<Artist> findAllArtists() {
-        return artistDao.findAllArtists();
+        return artistRepository.findAllArtists();
     }
 
     @Override
     public Artist findArtistById(int artistId) {
-        return artistDao.findById(artistId);
+        return artistRepository.findById(artistId);
     }
 
     @Override
     public List<Artist> findMatchedArtistsByName(String name) {
-        return artistDao.findMatchedArtistsByName(name);
+        return artistRepository.findMatchedArtistsByName(name);
     }
 
     @Override
@@ -62,12 +64,12 @@ public class RecordStoreServiceImpl implements RecordStoreService {
 
     @Override
     public List<Record> findRecordsByArtist(int artistId) {
-        return recordDao.findRecordsByArtist(artistId);
+        return recordDao.findByArtist(artistId);
     }
 
     @Override
     public void saveArtist(Artist artist) {
-        artistDao.insert(artist);
+        artistRepository.insert(artist);
     }
 
     @Override
@@ -81,7 +83,7 @@ public class RecordStoreServiceImpl implements RecordStoreService {
 
     @Override
     public Artist updateArtistById(Artist artist) {
-        return artistDao.update(artist);
+        return artistRepository.update(artist);
     }
 
     @Override
