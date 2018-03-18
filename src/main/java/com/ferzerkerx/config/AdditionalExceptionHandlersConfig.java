@@ -12,9 +12,9 @@ import java.io.IOException;
 import java.util.List;
 
 @Configuration
-public class AdditionalExceptionHandlersConfiguration implements WebMvcConfigurer {
+public class AdditionalExceptionHandlersConfig implements WebMvcConfigurer {
 
-    private static final Logger log = LoggerFactory.getLogger(AdditionalExceptionHandlersConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(AdditionalExceptionHandlersConfig.class);
 
     @Override
     public void extendHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
