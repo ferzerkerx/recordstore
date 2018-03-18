@@ -14,9 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class RecordRepositorympl extends BaseRepositorympl<Record> implements RecordRepository {
+public class RecordRepositoryImpl extends BaseRepositorympl<Record> implements RecordRepository {
 
-    public RecordRepositorympl() {
+    public RecordRepositoryImpl() {
         super(Record.class);
     }
 

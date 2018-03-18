@@ -5,13 +5,12 @@ import com.ferzerkerx.repository.RecordRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 @Configuration
-@EnableTransactionManagement
 public class TestDbConfig {
 
     @Bean
@@ -20,16 +19,21 @@ public class TestDbConfig {
     }
 
     @Bean
-    public ArtistRepository artistRepository(EntityManagerFactory factory) {
+    public EntityManager entityManager(EntityManagerFactory entityManagerFactory) {
+        return entityManagerFactory.createEntityManager();
+    }
+
+    @Bean
+    public ArtistRepository artistRepository(EntityManager entityManager) {
         ArtistRepositoryImpl artistDao = new ArtistRepositoryImpl();
-        artistDao.setEm(factory.createEntityManager());
+        artistDao.setEm(entityManager);
         return artistDao;
     }
 
     @Bean
-    public RecordRepository recordRepository(EntityManagerFactory factory) {
-        RecordRepositorympl recordDao = new RecordRepositorympl();
-        recordDao.setEm(factory.createEntityManager());
+    public RecordRepository recordRepository(EntityManager entityManager) {
+        RecordRepositoryImpl recordDao = new RecordRepositoryImpl();
+        recordDao.setEm(entityManager);
         return recordDao;
     }
 
