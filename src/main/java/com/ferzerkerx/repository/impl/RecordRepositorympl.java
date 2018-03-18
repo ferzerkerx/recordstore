@@ -1,6 +1,6 @@
 package com.ferzerkerx.repository.impl;
 
-import com.ferzerkerx.repository.RecordDao;
+import com.ferzerkerx.repository.RecordRepository;
 import com.ferzerkerx.model.Record;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class RecordRepositorympl extends BaseRepositorympl<Record> implements RecordDao {
+public class RecordRepositorympl extends BaseRepositorympl<Record> implements RecordRepository {
 
     public RecordRepositorympl() {
         super(Record.class);

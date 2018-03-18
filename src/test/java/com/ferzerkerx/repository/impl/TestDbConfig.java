@@ -1,7 +1,7 @@
 package com.ferzerkerx.repository.impl;
 
 import com.ferzerkerx.repository.ArtistRepository;
-import com.ferzerkerx.repository.RecordDao;
+import com.ferzerkerx.repository.RecordRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -27,7 +27,7 @@ public class TestDbConfig {
     }
 
     @Bean
-    public RecordDao recordRepository(EntityManagerFactory factory) {
+    public RecordRepository recordRepository(EntityManagerFactory factory) {
         RecordRepositorympl recordDao = new RecordRepositorympl();
         recordDao.setEm(factory.createEntityManager());
         return recordDao;

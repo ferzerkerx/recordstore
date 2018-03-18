@@ -1,7 +1,7 @@
 package com.ferzerkerx.service;
 
 import com.ferzerkerx.repository.ArtistRepository;
-import com.ferzerkerx.repository.RecordDao;
+import com.ferzerkerx.repository.RecordRepository;
 import com.ferzerkerx.model.Artist;
 import com.ferzerkerx.model.Record;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,22 +17,22 @@ import static java.util.Objects.requireNonNull;
 public class RecordStoreServiceImpl implements RecordStoreService {
 
     private final ArtistRepository artistRepository;
-    private final RecordDao recordDao;
+    private final RecordRepository recordRepository;
 
     @Autowired
-    public RecordStoreServiceImpl(ArtistRepository artistRepository, RecordDao recordDao) {
+    public RecordStoreServiceImpl(ArtistRepository artistRepository, RecordRepository recordRepository) {
         this.artistRepository = artistRepository;
-        this.recordDao = recordDao;
+        this.recordRepository = recordRepository;
     }
 
     @Override
     public void deleteRecordById(int recordId) {
-        recordDao.deleteByIds(recordId);
+        recordRepository.deleteByIds(recordId);
     }
 
     @Override
     public void deleteArtistWithRecordsById(int artistId) {
-        recordDao.deleteByArtistId(artistId);
+        recordRepository.deleteByArtistId(artistId);
         artistRepository.deleteByIds(artistId);
     }
 
@@ -60,17 +60,17 @@ public class RecordStoreServiceImpl implements RecordStoreService {
         Record record = new Record();
         record.setTitle(title);
         record.setYear(year);
-        return recordDao.findByCriteria(record);
+        return recordRepository.findByCriteria(record);
     }
 
     @Override
     public Record findRecordById(int recordId) {
-        return recordDao.findById(recordId);
+        return recordRepository.findById(recordId);
     }
 
     @Override
     public List<Record> findRecordsByArtist(int artistId) {
-        return recordDao.findByArtist(artistId);
+        return recordRepository.findByArtist(artistId);
     }
 
     @Override
@@ -86,7 +86,7 @@ public class RecordStoreServiceImpl implements RecordStoreService {
         artist.setId(artistId);
 
         record.setArtist(artist);
-        recordDao.insert(record);
+        recordRepository.insert(record);
     }
 
     @Override
@@ -98,6 +98,6 @@ public class RecordStoreServiceImpl implements RecordStoreService {
     @Override
     public Record updateRecordById(Record record) {
         requireNonNull(record);
-        return recordDao.update(record);
+        return recordRepository.update(record);
     }
 }

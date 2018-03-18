@@ -1,7 +1,7 @@
 package com.ferzerkerx.repository.impl;
 
 import com.ferzerkerx.repository.ArtistRepository;
-import com.ferzerkerx.repository.RecordDao;
+import com.ferzerkerx.repository.RecordRepository;
 import com.ferzerkerx.model.Artist;
 import com.ferzerkerx.model.Record;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ class RecordRepositoryIntegrationTest extends BaseRepositoryIntegrationTest {
     private ArtistRepository artistRepository;
 
     @Autowired
-    private RecordDao recordDao;
+    private RecordRepository recordRepository;
 
     @Test
     void testInsert() {
@@ -30,9 +30,9 @@ class RecordRepositoryIntegrationTest extends BaseRepositoryIntegrationTest {
         artistRepository.insert(artist);
 
         Record newRecord = record(artist);
-        recordDao.insert(newRecord);
+        recordRepository.insert(newRecord);
 
-        Record recordFromDb = recordDao.findById(newRecord.getId());
+        Record recordFromDb = recordRepository.findById(newRecord.getId());
 
         assertNotNull(recordFromDb);
         assertEquals(newRecord.getId(), recordFromDb.getId());
@@ -46,13 +46,13 @@ class RecordRepositoryIntegrationTest extends BaseRepositoryIntegrationTest {
         artistRepository.insert(artist);
 
         Record updatedRecord = record(artist);
-        recordDao.insert(updatedRecord);
+        recordRepository.insert(updatedRecord);
 
         updatedRecord.setTitle("updated title");
         updatedRecord.setYear("2009");
-        recordDao.update(updatedRecord);
+        recordRepository.update(updatedRecord);
 
-        Record dbRecord = recordDao.findById(updatedRecord.getId());
+        Record dbRecord = recordRepository.findById(updatedRecord.getId());
         assertNotNull(dbRecord);
         assertEquals("updated title", dbRecord.getTitle());
         assertEquals("2009", dbRecord.getYear());
@@ -64,12 +64,12 @@ class RecordRepositoryIntegrationTest extends BaseRepositoryIntegrationTest {
         artistRepository.insert(artist);
 
         Record record = record(artist);
-        recordDao.insert(record);
+        recordRepository.insert(record);
 
         Integer recordId = record.getId();
-        recordDao.delete(record);
+        recordRepository.delete(record);
 
-        Record dbRecord = recordDao.findById(recordId);
+        Record dbRecord = recordRepository.findById(recordId);
         assertNull(dbRecord);
     }
 
@@ -79,9 +79,9 @@ class RecordRepositoryIntegrationTest extends BaseRepositoryIntegrationTest {
         artistRepository.insert(artist);
 
         Record record = record(artist);
-        recordDao.insert(record);
+        recordRepository.insert(record);
 
-        List<Record> recordsByArtist = recordDao.findByArtist(artist.getId());
+        List<Record> recordsByArtist = recordRepository.findByArtist(artist.getId());
         assertTrue(isNotEmpty(recordsByArtist));
         assertEquals(record.getId(), recordsByArtist.get(0).getId());
     }
@@ -92,9 +92,9 @@ class RecordRepositoryIntegrationTest extends BaseRepositoryIntegrationTest {
         artistRepository.insert(artist);
 
         Record record = record(artist);
-        recordDao.insert(record);
+        recordRepository.insert(record);
 
-        List<Record> recordsByArtist = recordDao.findByCriteria(record);
+        List<Record> recordsByArtist = recordRepository.findByCriteria(record);
         assertTrue(isNotEmpty(recordsByArtist));
         assertEquals(record.getId(), recordsByArtist.get(0).getId());
     }
@@ -105,13 +105,13 @@ class RecordRepositoryIntegrationTest extends BaseRepositoryIntegrationTest {
         artistRepository.insert(artist);
 
         Record record = record(artist);
-        recordDao.insert(record);
+        recordRepository.insert(record);
 
-        List<Record> recordsByArtist = recordDao.findByArtist(artist.getId());
+        List<Record> recordsByArtist = recordRepository.findByArtist(artist.getId());
         assertTrue(isNotEmpty(recordsByArtist));
         assertEquals(record.getId(), recordsByArtist.get(0).getId());
 
-        recordDao.deleteByArtistId(artist.getId());
-        assertTrue(isEmpty(recordDao.findByArtist(artist.getId())));
+        recordRepository.deleteByArtistId(artist.getId());
+        assertTrue(isEmpty(recordRepository.findByArtist(artist.getId())));
     }
 }
