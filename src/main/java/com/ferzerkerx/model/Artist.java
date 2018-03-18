@@ -3,6 +3,7 @@ package com.ferzerkerx.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -38,7 +39,7 @@ public class Artist {
     }
 
     public List<Record> getRecords() {
-        return records;
+        return Collections.unmodifiableList(records);
     }
 
     public void setRecords(List<Record> records) {
