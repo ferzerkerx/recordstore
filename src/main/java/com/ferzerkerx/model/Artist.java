@@ -3,12 +3,11 @@ package com.ferzerkerx.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "artist")
-public class Artist implements Serializable {
+public class Artist {
 
     @Id
     @Column(name = "artist_id")
