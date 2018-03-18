@@ -3,8 +3,10 @@ package com.ferzerkerx.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "artist")
@@ -39,10 +41,13 @@ public class Artist {
     }
 
     public List<Record> getRecords() {
-        return Collections.unmodifiableList(records);
+        if (Objects.nonNull(records)) {
+            return Collections.unmodifiableList(records);
+        }
+        return Collections.emptyList();
     }
 
     public void setRecords(List<Record> records) {
-        this.records = records;
+        this.records = new ArrayList<>(records);
     }
 }

@@ -1,7 +1,7 @@
 package com.ferzerkerx.repository.impl;
 
-import com.ferzerkerx.repository.ArtistRepository;
 import com.ferzerkerx.model.Artist;
+import com.ferzerkerx.repository.ArtistRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.TypedQuery;
@@ -23,6 +23,13 @@ public class ArtistRepositoryImpl extends BaseRepositorympl<Artist> implements A
     @Override
     public List<Artist> findMatchedArtistsByName(String name) {
         TypedQuery<Artist> query = createQuery("SELECT e FROM Artist e WHERE e.name LIKE :name");
+        query.setParameter("name", "%" + name + "%");
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Artist> findMatchedArtistsByNameWithRecords(String name) {
+        TypedQuery<Artist> query = createQuery("SELECT e FROM Artist e LEFT JOIN FETCH e.records WHERE e.name LIKE :name");
         query.setParameter("name", "%" + name + "%");
         return query.getResultList();
     }

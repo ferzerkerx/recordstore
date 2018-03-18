@@ -1,10 +1,12 @@
 package com.ferzerkerx.repository.impl;
 
-import com.ferzerkerx.repository.ArtistRepository;
 import com.ferzerkerx.model.Artist;
+import com.ferzerkerx.model.Record;
+import com.ferzerkerx.repository.ArtistRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Collections;
 import java.util.List;
 
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
@@ -63,6 +65,22 @@ class ArtistRepositoryIntegrationTest extends BaseRepositoryIntegrationTest {
         artistRepository.insert(artist);
 
         List<Artist> fooLikeArtist = artistRepository.findMatchedArtistsByName("foo");
+        assertTrue(isNotEmpty(fooLikeArtist));
+        List<Record> records = artist.getRecords();
+        assertTrue(isEmpty(records));
+
+        List<Artist> zooLikeArtist = artistRepository.findMatchedArtistsByName("zoo");
+        assertTrue(isEmpty(zooLikeArtist));
+    }
+
+    @Test
+    void testFindMatchedArtistsByNameWithRecords() {
+        Artist artist = new Artist();
+        artist.setName("baz");
+        artist.setRecords(Collections.emptyList());
+        artistRepository.insert(artist);
+
+        List<Artist> fooLikeArtist = artistRepository.findMatchedArtistsByNameWithRecords("baz");
         assertTrue(isNotEmpty(fooLikeArtist));
 
         List<Artist> zooLikeArtist = artistRepository.findMatchedArtistsByName("zoo");
