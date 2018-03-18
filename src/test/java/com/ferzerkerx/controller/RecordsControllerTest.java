@@ -76,7 +76,6 @@ class RecordsControllerTest {
 
         int captureValue = idCaptor.getValue();
         assertEquals(10, captureValue);
-
     }
 
     @Test
@@ -90,7 +89,6 @@ class RecordsControllerTest {
 
         int captureValue = idCaptor.getValue();
         assertEquals(10, captureValue);
-
     }
 
     @Test

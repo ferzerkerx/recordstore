@@ -20,35 +20,35 @@ public class RecordsController {
         this.recordStoreService = recordStoreService;
     }
 
-    @RequestMapping(value = {"/artist/{id}/records"}, method = RequestMethod.GET)
+    @GetMapping(value = {"/artist/{id}/records"})
     public List<Record> showRecordsForArtist(@PathVariable(value = "id") int artistId) {
         return recordStoreService.findRecordsByArtist(artistId);
     }
 
-    @RequestMapping(value = {"/artist/{id}/record"}, method = RequestMethod.POST)
+    @PostMapping(value = {"/artist/{id}/record"})
     public Record saveRecord(@PathVariable(value = "id") int artistId, @RequestBody Record record) {
         recordStoreService.saveRecord(artistId, record);
         return record;
     }
 
-    @RequestMapping(value = {"/record/{id}"}, method = RequestMethod.GET)
+    @GetMapping(value = {"/record/{id}"})
     public Record findRecordById(@PathVariable(value = "id") int recordId) {
         return recordStoreService.findRecordById(recordId);
     }
 
-    @RequestMapping(value = {"/record/{id}"}, method = RequestMethod.DELETE)
+    @DeleteMapping(value = {"/record/{id}"})
     @ResponseStatus(HttpStatus.OK)
     public void deleteRecordById(@PathVariable(value = "id") int recordId) {
         recordStoreService.deleteRecordById(recordId);
     }
 
-    @RequestMapping(value = {"/record/{id}"}, method = RequestMethod.PUT)
+    @PutMapping(value = {"/record/{id}"})
     public Record updateArtistById(@PathVariable(value = "id") int recordId, @RequestBody Record record) {
         record.setId(recordId);
         return recordStoreService.updateRecordById(record);
     }
 
-    @RequestMapping(value = {"/records/search"}, method = RequestMethod.GET)
+    @GetMapping(value = {"/records/search"})
     public List<Record> findMatchedRecordByCriteria(@RequestParam(value = "title", required = false) String title, @RequestParam(value = "year", required = false) String year) {
         if (StringUtils.isBlank(title) && StringUtils.isBlank(year)) {
             throw new BaseException("At least one criteria must be specified");
