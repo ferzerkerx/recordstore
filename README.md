@@ -12,4 +12,4 @@ mvn spring-boot:run
  - jdk 8+
 
 ## Available services
-Swagger documentation can be found in http://localhost:8080/swagger-ui.html
+Swagger documentation can be found on URL http://localhost:8080/swagger-ui.html
