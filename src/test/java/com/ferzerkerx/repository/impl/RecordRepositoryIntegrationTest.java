@@ -26,11 +26,7 @@ class RecordRepositoryIntegrationTest extends BaseRepositoryIntegrationTest {
 
     @Test
     void testInsert() {
-        Artist artist = artist();
-        artistRepository.insert(artist);
-
-        Record newRecord = record(artist);
-        recordRepository.insert(newRecord);
+        Record newRecord = insertRecord();
 
         Record recordFromDb = recordRepository.findById(newRecord.getId());
 
@@ -42,11 +38,7 @@ class RecordRepositoryIntegrationTest extends BaseRepositoryIntegrationTest {
 
     @Test
     void testUpdate() {
-        Artist artist = artist();
-        artistRepository.insert(artist);
-
-        Record updatedRecord = record(artist);
-        recordRepository.insert(updatedRecord);
+        Record updatedRecord = insertRecord();
 
         updatedRecord.setTitle("updated title");
         updatedRecord.setYear("2009");
@@ -60,11 +52,7 @@ class RecordRepositoryIntegrationTest extends BaseRepositoryIntegrationTest {
 
     @Test
     void testDelete() {
-        Artist artist = artist();
-        artistRepository.insert(artist);
-
-        Record record = record(artist);
-        recordRepository.insert(record);
+        Record record = insertRecord();
 
         Integer recordId = record.getId();
         recordRepository.delete(record);
@@ -87,12 +75,8 @@ class RecordRepositoryIntegrationTest extends BaseRepositoryIntegrationTest {
     }
 
     @Test
-    void testFindByCriteria() {
-        Artist artist = artist();
-        artistRepository.insert(artist);
-
-        Record record = record(artist);
-        recordRepository.insert(record);
+    void testFindByCriteria_withFullCriteria() {
+        Record record = insertRecord();
 
         List<Record> recordsByArtist = recordRepository.findByCriteria(record);
         assertTrue(isNotEmpty(recordsByArtist));
@@ -100,18 +84,33 @@ class RecordRepositoryIntegrationTest extends BaseRepositoryIntegrationTest {
     }
 
     @Test
+    void testFindByCriteria_withNoCriteria() {
+        Record record = insertRecord();
+
+        List<Record> recordsByArtist = recordRepository.findByCriteria(new Record());
+        assertTrue(isNotEmpty(recordsByArtist));
+        assertTrue(recordsByArtist.contains(record));
+    }
+
+    @Test
     void testDeleteByArtist() {
+        Record record = insertRecord();
+        int artistId = record.getArtist().getId();
+
+        List<Record> recordsByArtist = recordRepository.findByArtist(artistId);
+        assertTrue(isNotEmpty(recordsByArtist));
+        assertEquals(record.getId(), recordsByArtist.get(0).getId());
+
+        recordRepository.deleteByArtistId(artistId);
+        assertTrue(isEmpty(recordRepository.findByArtist(artistId)));
+    }
+
+    private Record insertRecord() {
         Artist artist = artist();
         artistRepository.insert(artist);
 
         Record record = record(artist);
         recordRepository.insert(record);
-
-        List<Record> recordsByArtist = recordRepository.findByArtist(artist.getId());
-        assertTrue(isNotEmpty(recordsByArtist));
-        assertEquals(record.getId(), recordsByArtist.get(0).getId());
-
-        recordRepository.deleteByArtistId(artist.getId());
-        assertTrue(isEmpty(recordRepository.findByArtist(artist.getId())));
+        return record;
     }
 }
