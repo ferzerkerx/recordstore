@@ -128,4 +128,14 @@ class RecordsControllerTest {
                 .andExpect(content().json(resource("list-of-record-response.json"), true));
 
     }
+
+    @Test
+    void findMatchedRecordByCriteria_withIncompleteCriteria_shouldFail() throws Exception {
+        doReturn(singletonList(defaultRecord()))
+                .when(recordStoreService).findMatchedRecordByCriteria("someTitle", "someYear");
+
+        this.mockMvc.perform(
+                get("/records/search"))
+                .andExpect(status().isBadRequest());
+    }
 }

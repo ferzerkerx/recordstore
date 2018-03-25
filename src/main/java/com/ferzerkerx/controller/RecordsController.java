@@ -1,6 +1,6 @@
 package com.ferzerkerx.controller;
 
-import com.ferzerkerx.model.BaseException;
+import com.ferzerkerx.model.ApplicationException;
 import com.ferzerkerx.model.Record;
 import com.ferzerkerx.service.RecordStoreService;
 import org.apache.commons.lang3.StringUtils;
@@ -51,7 +51,7 @@ public class RecordsController {
     @GetMapping(value = {"/records/search"})
     public List<Record> findMatchedRecordByCriteria(@RequestParam(value = "title", required = false) String title, @RequestParam(value = "year", required = false) String year) {
         if (StringUtils.isBlank(title) && StringUtils.isBlank(year)) {
-            throw new BaseException("At least one criteria must be specified");
+            throw new ApplicationException("At least one criteria must be specified");
         }
         return recordStoreService.findMatchedRecordByCriteria(title, year);
     }
