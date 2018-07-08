@@ -25,7 +25,8 @@ public class ArtistController {
 
 
     @PostMapping(value = {"/artist"})
-    public Artist saveArtist(@RequestBody Artist artist) {
+    public Artist saveArtist(@RequestBody ArtistDto artistDto) {
+        Artist artist = artistDto.toEntity();
         recordStoreService.saveArtist(artist);
         return artist;
     }
@@ -41,14 +42,34 @@ public class ArtistController {
     }
 
     @PutMapping(value = {"/artist/{id}"})
-    public Artist updateArtistById(@PathVariable(value = "id") int artistId, @RequestBody Artist artist) {
-        artist.setId(artistId);
-        return recordStoreService.updateArtistById(artist);
+    public Artist updateArtistById(@PathVariable(value = "id") int artistId, @RequestBody ArtistDto artistDto) {
+        artistDto.setId(artistId);
+        return recordStoreService.updateArtistById(artistDto.toEntity());
     }
 
     @GetMapping(value = {"/artist/search"})
-    public List<Artist> findMatchedArtistsByName(@RequestParam(value = "name", required = true) String name) {
+    public List<Artist> findMatchedArtistsByName(@RequestParam(value = "name") String name) {
         return recordStoreService.findMatchedArtistsByName(name);
+    }
+
+    static class ArtistDto {
+        private int id;
+        private String name;
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        Artist toEntity() {
+            Artist artist = new Artist();
+            artist.setId(id);
+            artist.setName(name);
+            return artist;
+        }
     }
 
 }

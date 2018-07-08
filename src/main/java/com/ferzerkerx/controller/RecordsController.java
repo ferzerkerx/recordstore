@@ -26,7 +26,8 @@ public class RecordsController {
     }
 
     @PostMapping(value = {"/artist/{id}/record"})
-    public Record saveRecord(@PathVariable(value = "id") int artistId, @RequestBody Record record) {
+    public Record saveRecord(@PathVariable(value = "id") int artistId, @RequestBody RecordDto recordDto) {
+        Record record = recordDto.toEntity();
         recordStoreService.saveRecord(artistId, record);
         return record;
     }
@@ -43,9 +44,9 @@ public class RecordsController {
     }
 
     @PutMapping(value = {"/record/{id}"})
-    public Record updateArtistById(@PathVariable(value = "id") int recordId, @RequestBody Record record) {
-        record.setId(recordId);
-        return recordStoreService.updateRecordById(record);
+    public Record updateArtistById(@PathVariable(value = "id") int recordId, @RequestBody RecordDto recordDto) {
+        recordDto.setId(recordId);
+        return recordStoreService.updateRecordById(recordDto.toEntity());
     }
 
     @GetMapping(value = {"/records/search"})
@@ -54,5 +55,31 @@ public class RecordsController {
             throw new ApplicationException("At least one criteria must be specified");
         }
         return recordStoreService.findMatchedRecordByCriteria(title, year);
+    }
+
+    static class RecordDto {
+        private int id;
+        private String title;
+        private String year;
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public void setYear(String year) {
+            this.year = year;
+        }
+
+        Record toEntity() {
+            Record record = new Record();
+            record.setId(id);
+            record.setTitle(title);
+            record.setYear(year);
+            return record;
+        }
     }
 }
