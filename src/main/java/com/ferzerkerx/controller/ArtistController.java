@@ -2,6 +2,7 @@ package com.ferzerkerx.controller;
 
 import com.ferzerkerx.model.Artist;
 import com.ferzerkerx.service.RecordStoreService;
+import io.micrometer.core.annotation.Timed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,6 +10,7 @@ import java.util.Collection;
 import java.util.List;
 
 @RestController
+@Timed
 public class ArtistController {
 
     private final RecordStoreService recordStoreService;
