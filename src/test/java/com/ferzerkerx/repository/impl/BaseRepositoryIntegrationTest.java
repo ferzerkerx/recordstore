@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = {TestDbConfig.class})
 @Transactional
+//@Sql({"/schema.sql"})
 abstract class BaseRepositoryIntegrationTest {
 
 }

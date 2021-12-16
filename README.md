@@ -5,11 +5,6 @@
 
 ## Usage
 mvn spring-boot:run
- - app will listen on port :8080
 
-## Dependencies
- - maven 3+
- - jdk 8+
-
-## Available services
+## Swagger docs
 Swagger documentation can be found on URL http://localhost:8080/swagger-ui.html

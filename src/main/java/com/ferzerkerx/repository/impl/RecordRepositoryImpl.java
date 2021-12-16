@@ -1,7 +1,7 @@
 package com.ferzerkerx.repository.impl;
 
-import com.ferzerkerx.repository.RecordRepository;
 import com.ferzerkerx.model.Record;
+import com.ferzerkerx.repository.RecordRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 

@@ -3,7 +3,8 @@ package com.ferzerkerx;
 import com.ferzerkerx.model.Artist;
 import com.ferzerkerx.model.Record;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;

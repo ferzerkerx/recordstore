@@ -1,7 +1,8 @@
 package com.ferzerkerx.repository;
 
-import java.util.List;
 import com.ferzerkerx.model.Record;
+
+import java.util.List;
 
 public interface RecordRepository extends BaseDao<Record> {
 

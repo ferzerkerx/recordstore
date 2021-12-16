@@ -1,9 +1,9 @@
 package com.ferzerkerx.repository.impl;
 
-import com.ferzerkerx.repository.ArtistRepository;
-import com.ferzerkerx.repository.RecordRepository;
 import com.ferzerkerx.model.Artist;
 import com.ferzerkerx.model.Record;
+import com.ferzerkerx.repository.ArtistRepository;
+import com.ferzerkerx.repository.RecordRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

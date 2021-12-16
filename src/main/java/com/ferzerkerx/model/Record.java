@@ -21,7 +21,7 @@ public class Record {
     @JoinColumn(name = "artist_id", nullable = false, updatable = false)
     private Artist artist;
 
-    @Column(length = 4)
+    @Column(length = 4, name = "release_year")
     private String year;
 
     public int getId() {

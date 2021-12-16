@@ -12,7 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static com.ferzerkerx.TestUtils.*;
+import static com.ferzerkerx.TestUtils.artist;
+import static com.ferzerkerx.TestUtils.resource;
 import static java.util.Collections.singletonList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -35,7 +36,7 @@ class ArtistControllerTest {
         when(recordStoreService.findAllArtists()).thenReturn(singletonList(artist()));
 
         this.mockMvc.perform(
-                get("/artists"))
+                        get("/artists"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(resource("list-of-artist-response.json"), true));
@@ -47,9 +48,9 @@ class ArtistControllerTest {
         doNothing().when(recordStoreService).saveArtist(artistCaptor.capture());
 
         this.mockMvc.perform(
-                post("/artist")
-                        .content(resource("artist-request.json"))
-                        .contentType(MediaType.APPLICATION_JSON))
+                        post("/artist")
+                                .content(resource("artist-request.json"))
+                                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(resource("artist-response.json"), true));
@@ -64,7 +65,7 @@ class ArtistControllerTest {
         doReturn(artist()).when(recordStoreService).findArtistById(idCaptor.capture());
 
         this.mockMvc.perform(
-                get("/artist/10"))
+                        get("/artist/10"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(resource("artist-response.json"), true));
@@ -79,7 +80,7 @@ class ArtistControllerTest {
         doNothing().when(recordStoreService).deleteArtistWithRecordsById(idCaptor.capture());
 
         this.mockMvc.perform(
-                delete("/artist/10"))
+                        delete("/artist/10"))
                 .andExpect(status().isOk());
 
         int captureValue = idCaptor.getValue();
@@ -94,9 +95,9 @@ class ArtistControllerTest {
 
 
         this.mockMvc.perform(
-                put("/artist/10")
-                        .content(resource("artist-request.json"))
-                        .contentType(MediaType.APPLICATION_JSON))
+                        put("/artist/10")
+                                .content(resource("artist-request.json"))
+                                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(resource("update-artist-response.json"), true));
@@ -113,8 +114,8 @@ class ArtistControllerTest {
                 .when(recordStoreService).findMatchedArtistsByName("someName");
 
         this.mockMvc.perform(
-                get("/artist/search")
-                        .param("name", "someName"))
+                        get("/artist/search")
+                                .param("name", "someName"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(resource("list-of-artist-response.json"), true));

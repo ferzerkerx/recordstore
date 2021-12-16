@@ -38,7 +38,7 @@ class RecordsControllerTest {
         when(recordStoreService.findRecordsByArtist(artistId)).thenReturn(singletonList(defaultRecord()));
 
         this.mockMvc.perform(
-                get("/artist/3/records"))
+                        get("/artist/3/records"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(resource("list-of-record-response.json"), true));
@@ -50,10 +50,10 @@ class RecordsControllerTest {
         doNothing().when(recordStoreService).saveRecord(eq(artistId), recordCaptor.capture());
 
         this.mockMvc.perform(
-                post("/artist/3/record")
-                        .content(resource("record-request.json"))
-                        .contentType(MediaType.APPLICATION_JSON)
-        )
+                        post("/artist/3/record")
+                                .content(resource("record-request.json"))
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(resource("record-response.json"), true));
@@ -69,7 +69,7 @@ class RecordsControllerTest {
         doReturn(defaultRecord()).when(recordStoreService).findRecordById(idCaptor.capture());
 
         this.mockMvc.perform(
-                get("/record/10"))
+                        get("/record/10"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(resource("record-response.json"), true));
@@ -84,7 +84,7 @@ class RecordsControllerTest {
         doNothing().when(recordStoreService).deleteRecordById(idCaptor.capture());
 
         this.mockMvc.perform(
-                delete("/record/10"))
+                        delete("/record/10"))
                 .andExpect(status().isOk());
 
         int captureValue = idCaptor.getValue();
@@ -99,10 +99,10 @@ class RecordsControllerTest {
 
 
         this.mockMvc.perform(
-                put("/record/10")
-                        .content(resource("record-request.json"))
-                        .contentType(MediaType.APPLICATION_JSON)
-        )
+                        put("/record/10")
+                                .content(resource("record-request.json"))
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(resource("update-record-response.json"), true));
@@ -119,9 +119,9 @@ class RecordsControllerTest {
                 .when(recordStoreService).findMatchedRecordByCriteria("someTitle", "someYear");
 
         this.mockMvc.perform(
-                get("/records/search")
-                        .param("title", "someTitle")
-                        .param("year", "someYear")
+                        get("/records/search")
+                                .param("title", "someTitle")
+                                .param("year", "someYear")
                 )
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -135,7 +135,7 @@ class RecordsControllerTest {
                 .when(recordStoreService).findMatchedRecordByCriteria("someTitle", "someYear");
 
         this.mockMvc.perform(
-                get("/records/search"))
+                        get("/records/search"))
                 .andExpect(status().isBadRequest());
     }
 }
