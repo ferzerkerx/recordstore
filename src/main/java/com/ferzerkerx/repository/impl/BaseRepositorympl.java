@@ -1,56 +1,50 @@
 package com.ferzerkerx.repository.impl;
 
-import com.ferzerkerx.repository.BaseDao;
+import com.ferzerkerx.repository.BaseRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.Arrays;
 import java.util.List;
 
 @Repository
-public abstract class BaseRepositorympl<T> implements BaseDao<T> {
+public abstract class BaseRepositorympl<T> implements BaseRepository<T> {
 
     private final Class<T> clazz;
+    private final EntityManager entityManager;
 
-    @PersistenceContext
-    private EntityManager em;
-
-    protected BaseRepositorympl(Class<T> clazz) {
+    protected BaseRepositorympl(Class<T> clazz, EntityManager em) {
         this.clazz = clazz;
+        this.entityManager = em;
     }
 
-    EntityManager getEm() {
-        return em;
-    }
-
-    public void setEm(EntityManager em) {
-        this.em = em;
+    EntityManager getEntityManager() {
+        return entityManager;
     }
 
     @Override
     public T insert(T type) {
-        em.persist(type);
+        entityManager.persist(type);
         return type;
     }
 
     @Override
     public T update(T type) {
-        em.merge(type);
+        entityManager.merge(type);
         return type;
     }
 
     @Override
     public void deleteByIds(Integer... ids) {
-        em.createQuery(String.format("DELETE FROM %s e WHERE e.id in :ids", clazz.getName())) //
+        entityManager.createQuery(String.format("DELETE FROM %s e WHERE e.id in :ids", clazz.getName())) //
                 .setParameter("ids", Arrays.asList(ids)).executeUpdate();
     }
 
     @Override
     public T delete(T type) {
-        T managedObject = em.merge(type);
-        em.remove(managedObject);
+        T managedObject = entityManager.merge(type);
+        entityManager.remove(managedObject);
         return managedObject;
     }
 
@@ -61,11 +55,11 @@ public abstract class BaseRepositorympl<T> implements BaseDao<T> {
 
     @Override
     public T findById(Integer id) {
-        return em.find(clazz, id);
+        return entityManager.find(clazz, id);
     }
 
     TypedQuery<T> createQuery(String query) {
-        return em.createQuery(query, clazz);
+        return entityManager.createQuery(query, clazz);
     }
 
 }

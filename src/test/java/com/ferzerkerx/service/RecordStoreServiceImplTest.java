@@ -65,7 +65,7 @@ class RecordStoreServiceImplTest {
     void findMatchedArtistsByName() {
         String name = "someName";
         recordStoreService.findMatchedArtistsByName(name);
-        verify(artistRepository).findMatchedArtistsByName(name);
+        verify(artistRepository).findArtistsByName(name);
     }
 
     @Test
@@ -106,18 +106,18 @@ class RecordStoreServiceImplTest {
 
     @Test
     void saveRecord() {
-        Record record = new Record();
-        record.setTitle("someTitle");
-        record.setYear("1995");
+        Record audioRecord = new Record();
+        audioRecord.setTitle("someTitle");
+        audioRecord.setYear("1995");
         int artistId = 1;
 
         ArgumentCaptor<Record> albumArgumentCaptor = ArgumentCaptor.forClass(Record.class);
 
-        recordStoreService.saveRecord(artistId, record);
+        recordStoreService.saveRecord(artistId, audioRecord);
         verify(recordRepository).insert(albumArgumentCaptor.capture());
 
         Record capturedAlbum = albumArgumentCaptor.getValue();
-        assertEquals(record, capturedAlbum);
+        assertEquals(audioRecord, capturedAlbum);
 
         Artist capturedAlbumArtist = capturedAlbum.getArtist();
         assertNotNull(capturedAlbumArtist);
@@ -133,8 +133,8 @@ class RecordStoreServiceImplTest {
 
     @Test
     void updateRecordById() {
-        Record record = new Record();
-        recordStoreService.updateRecordById(record);
-        verify(recordRepository).update(record);
+        Record audioRecord = new Record();
+        recordStoreService.updateRecordById(audioRecord);
+        verify(recordRepository).update(audioRecord);
     }
 }

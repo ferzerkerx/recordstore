@@ -4,26 +4,22 @@ import com.ferzerkerx.model.Artist;
 import com.ferzerkerx.model.Record;
 import com.ferzerkerx.repository.ArtistRepository;
 import com.ferzerkerx.repository.RecordRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
-
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class RecordStoreServiceImpl implements RecordStoreService {
 
+    @NonNull
     private final ArtistRepository artistRepository;
+    @NonNull
     private final RecordRepository recordRepository;
-
-    @Autowired
-    public RecordStoreServiceImpl(ArtistRepository artistRepository, RecordRepository recordRepository) {
-        this.artistRepository = artistRepository;
-        this.recordRepository = recordRepository;
-    }
 
     @Override
     public void deleteRecordById(int recordId) {
@@ -47,20 +43,16 @@ public class RecordStoreServiceImpl implements RecordStoreService {
     }
 
     @Override
-    public List<Artist> findMatchedArtistsByName(String name) {
-        requireNonNull(name);
-        return artistRepository.findMatchedArtistsByName(name);
+    public List<Artist> findMatchedArtistsByName(@NonNull String name) {
+        return artistRepository.findArtistsByName(name);
     }
 
     @Override
-    public List<Record> findMatchedRecordByCriteria(String title, String year) {
-        requireNonNull(title);
-        requireNonNull(year);
-
-        Record record = new Record();
-        record.setTitle(title);
-        record.setYear(year);
-        return recordRepository.findByCriteria(record);
+    public List<Record> findMatchedRecordByCriteria(@NonNull String title, @NonNull String year) {
+        Record audioRecord = new Record();
+        audioRecord.setTitle(title);
+        audioRecord.setYear(year);
+        return recordRepository.findByCriteria(audioRecord);
     }
 
     @Override
@@ -74,30 +66,26 @@ public class RecordStoreServiceImpl implements RecordStoreService {
     }
 
     @Override
-    public void saveArtist(Artist artist) {
-        requireNonNull(artist);
+    public void saveArtist(@NonNull Artist artist) {
         artistRepository.insert(artist);
     }
 
     @Override
-    public void saveRecord(int artistId, Record record) {
-        requireNonNull(record);
+    public void saveRecord(int artistId, @NonNull Record audioRecord) {
         Artist artist = new Artist();
         artist.setId(artistId);
 
-        record.setArtist(artist);
-        recordRepository.insert(record);
+        audioRecord.setArtist(artist);
+        recordRepository.insert(audioRecord);
     }
 
     @Override
-    public Artist updateArtistById(Artist artist) {
-        requireNonNull(artist);
+    public Artist updateArtistById(@NonNull Artist artist) {
         return artistRepository.update(artist);
     }
 
     @Override
-    public Record updateRecordById(Record record) {
-        requireNonNull(record);
-        return recordRepository.update(record);
+    public Record updateRecordById(@NonNull Record audioRecord) {
+        return recordRepository.update(audioRecord);
     }
 }

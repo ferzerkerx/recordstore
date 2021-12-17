@@ -27,8 +27,8 @@ public class AdditionalExceptionHandlersConfig implements WebMvcConfigurer {
             try {
                 httpServletRequest.setAttribute("javax.servlet.error.exception", new RuntimeException()); //This hides the type of exception
                 httpServletResponse.sendError(HttpStatus.INTERNAL_SERVER_ERROR.value(), "");
-            } catch (IOException ignored) {
-                log.error("Handling of {} resulted in Exception {}", e.getClass().getName(), ignored.getMessage());
+            } catch (IOException exception) {
+                log.error("Handling of {} resulted in Exception {}", e.getClass().getName(), exception.getMessage());
             }
             return new ModelAndView();
         };

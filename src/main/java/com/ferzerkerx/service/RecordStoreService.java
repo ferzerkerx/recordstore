@@ -25,9 +25,9 @@ public interface RecordStoreService {
 
     void saveArtist(Artist artist);
 
-    void saveRecord(int artistId, Record record);
+    void saveRecord(int artistId, Record audioRecord);
 
     Artist updateArtistById(Artist artist);
 
-    Record updateRecordById(Record record);
+    Record updateRecordById(Record audioRecord);
 }

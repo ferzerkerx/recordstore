@@ -4,11 +4,11 @@ import com.ferzerkerx.model.Artist;
 
 import java.util.List;
 
-public interface ArtistRepository extends BaseDao<Artist> {
+public interface ArtistRepository extends BaseRepository<Artist> {
 
     List<Artist> findAllArtists();
 
-    List<Artist> findMatchedArtistsByName(String name);
+    List<Artist> findArtistsByName(String name);
 
-    List<Artist> findMatchedArtistsByNameWithRecords(String name);
+    List<Artist> findArtistsByNameWithRecords(String name);
 }

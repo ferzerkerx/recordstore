@@ -4,7 +4,7 @@ import com.ferzerkerx.model.Record;
 
 import java.util.List;
 
-public interface RecordRepository extends BaseDao<Record> {
+public interface RecordRepository extends BaseRepository<Record> {
 
     void deleteByArtistId(int artistId);
 

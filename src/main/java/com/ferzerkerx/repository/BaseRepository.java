@@ -2,7 +2,7 @@ package com.ferzerkerx.repository;
 
 import java.util.List;
 
-public interface BaseDao<T> {
+public interface BaseRepository<T> {
 
     T findById(Integer id);
 

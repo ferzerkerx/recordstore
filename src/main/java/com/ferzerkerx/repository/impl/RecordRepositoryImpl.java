@@ -2,9 +2,11 @@ package com.ferzerkerx.repository.impl;
 
 import com.ferzerkerx.model.Record;
 import com.ferzerkerx.repository.RecordRepository;
+import lombok.NonNull;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -16,13 +18,13 @@ import java.util.List;
 @Repository
 public class RecordRepositoryImpl extends BaseRepositorympl<Record> implements RecordRepository {
 
-    public RecordRepositoryImpl() {
-        super(Record.class);
+    public RecordRepositoryImpl(EntityManager entityManager) {
+        super(Record.class, entityManager);
     }
 
     @Override
     public void deleteByArtistId(int artistId) {
-        getEm().createQuery("DELETE FROM Record r WHERE r.artist.id = :id") //
+        getEntityManager().createQuery("DELETE FROM Record r WHERE r.artist.id = :id") //
                 .setParameter("id", artistId) //
                 .executeUpdate();
     }
@@ -36,8 +38,8 @@ public class RecordRepositoryImpl extends BaseRepositorympl<Record> implements R
 
 
     @Override
-    public List<Record> findByCriteria(Record typeCriteria) {
-        CriteriaBuilder criteriaBuilder = getEm().getCriteriaBuilder();
+    public List<Record> findByCriteria(@NonNull Record typeCriteria) {
+        CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Record> criteriaQuery = criteriaBuilder.createQuery(Record.class);
         Root<Record> root = criteriaQuery.from(Record.class);
         criteriaQuery.select(root);
@@ -52,7 +54,7 @@ public class RecordRepositoryImpl extends BaseRepositorympl<Record> implements R
         }
         criteriaQuery.where(criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()])));
 
-        return getEm()
+        return getEntityManager()
                 .createQuery(criteriaQuery)
                 .getResultList();
     }

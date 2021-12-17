@@ -1,6 +1,6 @@
 package com.ferzerkerx.controller;
 
-import com.ferzerkerx.model.ApplicationException;
+import com.ferzerkerx.model.ApiValidationException;
 import com.ferzerkerx.model.Record;
 import com.ferzerkerx.service.RecordStoreService;
 import org.apache.commons.lang3.StringUtils;
@@ -27,9 +27,9 @@ public class RecordsController {
 
     @PostMapping(value = {"/artist/{id}/record"})
     public Record saveRecord(@PathVariable(value = "id") int artistId, @RequestBody RecordDto recordDto) {
-        Record record = recordDto.toEntity();
-        recordStoreService.saveRecord(artistId, record);
-        return record;
+        Record audioRecord = recordDto.toEntity();
+        recordStoreService.saveRecord(artistId, audioRecord);
+        return audioRecord;
     }
 
     @GetMapping(value = {"/record/{id}"})
@@ -52,7 +52,7 @@ public class RecordsController {
     @GetMapping(value = {"/records/search"})
     public List<Record> findMatchedRecordByCriteria(@RequestParam(value = "title", required = false) String title, @RequestParam(value = "year", required = false) String year) {
         if (StringUtils.isBlank(title) && StringUtils.isBlank(year)) {
-            throw new ApplicationException("At least one criteria must be specified");
+            throw new ApiValidationException("At least one criteria must be specified");
         }
         return recordStoreService.findMatchedRecordByCriteria(title, year);
     }
@@ -75,11 +75,11 @@ public class RecordsController {
         }
 
         Record toEntity() {
-            Record record = new Record();
-            record.setId(id);
-            record.setTitle(title);
-            record.setYear(year);
-            return record;
+            Record audioRecord = new Record();
+            audioRecord.setId(id);
+            audioRecord.setTitle(title);
+            audioRecord.setYear(year);
+            return audioRecord;
         }
     }
 }

@@ -3,7 +3,8 @@ package com.ferzerkerx.controller;
 import com.ferzerkerx.model.Artist;
 import com.ferzerkerx.service.RecordStoreService;
 import io.micrometer.core.annotation.Timed;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -11,14 +12,11 @@ import java.util.List;
 
 @RestController
 @Timed
+@RequiredArgsConstructor
 public class ArtistController {
 
+    @NonNull
     private final RecordStoreService recordStoreService;
-
-    @Autowired
-    public ArtistController(RecordStoreService recordStoreService) {
-        this.recordStoreService = recordStoreService;
-    }
 
     @GetMapping(value = {"/artists"})
     public Collection<Artist> showAllArtists() {
